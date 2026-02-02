@@ -1,98 +1,170 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# E-Commerce Platform Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A scalable and modular **E-Commerce Backend API** built with **NestJS**, **TypeScript**, and **MongoDB (Mongoose)**. The project is designed with clean architecture principles, focusing on separation of concerns, scalability, and maintainability.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🚀 Overview
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project provides a complete backend solution for an e-commerce platform, including authentication, product management, orders, payments, and more. It is structured in a way that makes it easy to extend, test, and maintain, making it suitable for real-world applications.
 
-## Project setup
+---
 
-```bash
-$ npm install
+## ✨ Features
+
+* JWT Authentication & Authorization
+* Role-Based Access Control (Admin / User / Super Admin)
+* User Authentication & OTP Verification
+* Product & Category Management
+* Cart & Favorites System
+* Order Management & Order Lifecycle
+* Coupon & Discount System
+* Payment Module (Stripe-ready)
+* Modular & Scalable Architecture
+
+---
+
+## 🏗️ Folder Structure
+
+```
+src/
+├── common/                # Shared utilities, guards, pipes, interceptors
+├── DB/                    # Database layer (schemas & repositories)
+│   ├── models/            # Mongoose schemas & enums
+│   └── repository/        # Repository pattern for DB access
+├── modules/               # Application modules (feature-based)
+│   ├── auth/              # Authentication & authorization
+│   ├── cart/              # Shopping cart logic
+│   ├── category/          # Product categories
+│   ├── coupon/            # Coupons & discounts
+│   ├── favorites/         # User favorites
+│   ├── orders/            # Orders & order management
+│   ├── payment/           # Payment handling
+│   ├── products/          # Products management
+│   └── shop/              # Shop & storefront logic
+├── shared.module.ts       # Shared providers & modules
+├── app.controller.ts      # Root controller
+├── app.module.ts          # Root application module
+├── app.service.ts         # Root service
+├── main.ts                # Application entry point
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## 🧠 Architecture & Design Principles
 
-# watch mode
-$ npm run start:dev
+### Modular Architecture
 
-# production mode
-$ npm run start:prod
+* Each feature is isolated in its own module
+* Improves scalability and maintainability
+* Easy to add or remove features without affecting others
+
+### Repository Pattern
+
+* Database logic is abstracted from business logic
+* Improves testability
+* Allows easier database replacement in the future
+
+### Separation of Concerns
+
+* Controllers handle HTTP requests
+* Services handle business logic
+* Repositories handle database operations
+
+---
+
+## 🔐 Security
+
+* JWT-based authentication
+* Role-based authorization using Guards
+* OTP system for email verification and password reset
+* Password hashing
+* Environment variables for sensitive data
+
+---
+
+## ⚡ Scalability & Performance
+
+* Clean and extensible project structure
+* MongoDB schemas designed for indexing
+* Pagination-ready endpoints
+* Payment system designed for multiple providers
+* Ready for caching and background jobs integration
+
+---
+
+## 🧪 Testing (Planned)
+
+* Unit testing with Jest
+* Service & repository level tests
+* Integration testing for critical flows
+
+---
+
+## 🐳 Deployment (Planned)
+
+* Docker & Docker Compose support
+* Environment-based configuration
+* Production-ready build process
+
+---
+
+## 📦 Environment Variables
+
+Create a `.env` file based on `.env.example`:
+
+```
+PORT=3000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+JWT_REFRESH_SECRET=your_refresh_token_secret
+STRIPE_SECRET_KEY=your_stripe_secret_key
+SUCCESS_URL=payment_success_url
+CANCEL_URL=payment_cancel_url
 ```
 
-## Run tests
+---
+
+## ▶️ Getting Started
+
+### Install Dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Run in Development Mode
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Build for Production
 
-## Resources
+```bash
+npm run build
+npm run start:prod
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## 📈 Future Improvements
 
-## Support
+* Add Redis caching
+* Background jobs & queues
+* Advanced logging (Winston / Pino)
+* CI/CD pipeline (GitHub Actions)
+* Full test coverage
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## 👨‍💻 Author
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**Ammar Crespo**
+Backend Developer — Node.js / NestJS
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 📄 License
+
+This project is licensed under the MIT License.
