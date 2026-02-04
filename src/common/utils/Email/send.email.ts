@@ -15,11 +15,16 @@ export const SendEmail = async ({
       throw new Error('EMAIL_USER or EMAIL_PASS is missing');
   }
   const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
     service: 'gmail',
     secure: true,
     auth: {
-      user: process.env.EMAIL_USER ,
-      pass: process.env.EMAIL_PASS ,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
     },
   });
 
