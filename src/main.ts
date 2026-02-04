@@ -5,12 +5,15 @@ import helmet from 'helmet';
 import 'dotenv/config';
 import { SuccessHandleInterceptor } from './common/interceptors/morgan.interceptor';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule,{
-    rawBody:true                          // لاجل الbuffer بتاع الpayload في الwebHook//
+  const app = await NestFactory.create(AppModule, {
+    rawBody: true, // لاجل الbuffer بتاع الpayload في الwebHook//
   });
   const port = Number(process.env.PORT || 5000);
   app.enableCors({
-    origin: ['https://myfrontend.com'],
+    origin: process.env.CORS_ORIGIN
+      ? process.env.CORS_ORIGIN.split(',')
+      : ['http://localhost:3000'
+      ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
