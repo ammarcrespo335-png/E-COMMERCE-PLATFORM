@@ -15,23 +15,23 @@ import { CategoryService } from './category.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { storage } from '../../common/utils/multer/upload';
 import { isValidObjectId, Types } from 'mongoose';
+import { RolesGuard } from '../../common/guards/roles.guard';
+import { RoleEnum } from '../../DB/models/user.model';
+import { Roles } from '../coupon/coupon.controller';
 
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post('create_category')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(RoleEnum.ShopOwner)
   @UseInterceptors(
     FileInterceptor('image', {
       storage: storage('category'),
     }),
   )
   async Create_Category(@Req() req: AuthReq) {
-    const isAdmin: boolean = (req.user.role as string) === 'admin';
-    if (!isAdmin) {
-      throw new ForbiddenException('Only admins can create categories');
-    }
     const data: Partial<Category> = {
       name: req.body.name,
       createdBy: req.user._id,
@@ -47,6 +47,7 @@ export class CategoryController {
   }
   @Patch('updateCategory/:id')
   @UseGuards(AuthGuard)
+  @Roles(RoleEnum.ShopOwner)
   @UseInterceptors(
     FileInterceptor('image', {
       storage: storage('category'),
@@ -76,6 +77,7 @@ export class CategoryController {
 
   @Patch('soft-delete/:id')
   @UseGuards(AuthGuard)
+  @Roles(RoleEnum.ShopOwner)
   async SoftDelete(@Req() req: AuthReq) {
     const isAdmin: boolean = (req.user.role as string) === 'admin';
     if (!isAdmin) {
@@ -86,10 +88,11 @@ export class CategoryController {
       throw new BadRequestException('Invalid category ID');
     const createdBy = req.user._id;
     const data = await this.categoryService.softDelete(categoryId, createdBy);
-    return { msg: 'category soft-deleted successfully', data }
+    return { msg: 'category soft-deleted successfully', data };
   }
   @Delete('hard-delete/:id')
   @UseGuards(AuthGuard)
+  @Roles(RoleEnum.ShopOwner)
   async hardDelete(@Req() req: AuthReq) {
     const isAdmin: boolean = (req.user.role as string) === 'admin';
     if (!isAdmin) {

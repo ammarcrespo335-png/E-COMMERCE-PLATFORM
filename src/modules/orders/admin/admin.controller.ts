@@ -20,7 +20,7 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Get('getAllOrders')
-  @Roles(RoleEnum.Admin)
+  @Roles(RoleEnum.ShopOwner)
   async getAllOrders(@Query('status') status?: OrderStatusEnum) {
     const data = await this.adminService.findAllOrders({ status });
     return {
@@ -28,7 +28,7 @@ export class AdminController {
     };
   }
   @Patch('order-status/:orderId')
-  @Roles(RoleEnum.Admin)
+  @Roles(RoleEnum.ShopOwner)
   async updateStatus(
     @Param('orderId') orderId: Types.ObjectId,
     @Body('status') status: OrderStatusEnum,
