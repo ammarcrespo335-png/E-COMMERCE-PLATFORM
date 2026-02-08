@@ -45,7 +45,7 @@ export class AuthController {
   }
   @Post('shopAdmin')
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(RoleEnum.SUPER_ADMIN)
+  @Roles(RoleEnum.Admin)
   @UsePipes(new ZodPipe(CreateShopAdminSchema))
   async createShopAdmin(@Body() data: User) {
     return this.authService.shopOwner(data);

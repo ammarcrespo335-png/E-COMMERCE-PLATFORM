@@ -54,10 +54,6 @@ export class CategoryController {
     }),
   )
   async update_category(@Req() req: AuthReq) {
-    const isAdmin: boolean = (req.user.role as string) === 'admin';
-    if (!isAdmin) {
-      throw new ForbiddenException('Only admins can update categories');
-    }
     const categoryId = new Types.ObjectId(req.params.id);
     if (!isValidObjectId(categoryId))
       throw new BadRequestException('Invalid category ID');
@@ -79,10 +75,6 @@ export class CategoryController {
   @UseGuards(AuthGuard)
   @Roles(RoleEnum.ShopOwner)
   async SoftDelete(@Req() req: AuthReq) {
-    const isAdmin: boolean = (req.user.role as string) === 'admin';
-    if (!isAdmin) {
-      throw new ForbiddenException('Only admins can frozen category');
-    }
     const categoryId = new Types.ObjectId(req.params.id);
     if (!isValidObjectId(categoryId))
       throw new BadRequestException('Invalid category ID');
